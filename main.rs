@@ -25,17 +25,6 @@ fn generate_tree(level: usize, counter: &mut i32) -> NodeRef<i32> {
     }
 }
 
-fn visit_nodes<T: Display>(root: &NodeRef<T>) {
-    match root {
-        Some(node) => {
-            println!("{}", node.value);
-            visit_nodes(&node.left);
-            visit_nodes(&node.right)
-        }
-        Node => {}
-    }
-}
-
 enum Action<T, U> {
     Call(T),
     Handle(U)
@@ -73,6 +62,7 @@ fn print_tree<T: Display>(root: &NodeRef<T>, level: usize) {
     }
 }
 
+#[allow(dead_code)]
 fn invert_tree<T: Clone>(root: NodeRef<T>) -> NodeRef<T> {
     match root {
         Some(node) => {
