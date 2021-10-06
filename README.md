@@ -13,7 +13,7 @@ $ ./main
 
 The Main Idea is to basically simulate the recursion by managing two stacks: one for the arguments (`arg_stack`) and one for the return values (`ret_stack`). The `arg_stack` contains a sequence of two kinds of actions:
 
-```rust
+```rs
 #[derive(Debug)]
 enum Action<T, U> {
     Call(T),
