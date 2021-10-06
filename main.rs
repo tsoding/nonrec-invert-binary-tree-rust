@@ -15,20 +15,32 @@ enum Action<T, U> {
     Handle(U)
 }
 
-fn generate_tree(level: usize, counter: &mut i32) -> NodeRef<i32> {
-    if level == 0 {
-        None
-    } else {
-        let mut node = Node {
-            value: *counter,
-            left: None,
-            right: None,
-        };
-        *counter += 1;
-        node.left = generate_tree(level - 1, counter);
-        node.right = generate_tree(level - 1, counter);
-        Some(Box::new(node))
+fn generate_tree(level: usize) -> NodeRef<i32> {
+    let mut counter = 1;
+    let mut arg_stack = Vec::<Action<usize, i32>>::new();
+    let mut ret_stack = Vec::<NodeRef<i32>>::new();
+
+    use Action::*;
+    arg_stack.push(Call(level));
+    while let Some(action) = arg_stack.pop() {
+        match action {
+            Call(level) => if level > 0 {
+                arg_stack.push(Handle(counter));
+                counter += 1;
+                arg_stack.push(Call(level - 1));
+                arg_stack.push(Call(level - 1));
+            } else {
+                ret_stack.push(None);
+            },
+            Handle(value) => {
+                let left = ret_stack.pop().unwrap();
+                let right = ret_stack.pop().unwrap();
+                ret_stack.push(Some(Box::new(Node{value, left, right})));
+            },
+        }
     }
+
+    ret_stack.pop().unwrap()
 }
 
 fn print_tree<T: Display>(root: &NodeRef<T>) {
@@ -79,8 +91,7 @@ fn invert_tree<T: Clone + Debug>(root: &NodeRef<T>) -> NodeRef<T> {
 }
 
 fn main() {
-    let mut counter = 1;
-    let tree = generate_tree(3, &mut counter);
+    let tree = generate_tree(3);
     print_tree(&tree);
     println!("------------------------------");
     print_tree(&invert_tree(&tree));
