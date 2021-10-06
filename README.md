@@ -13,7 +13,7 @@ $ ./main
 
 The Main Idea is to basically simulate the recursion by managing two stacks: one for the arguments (`arg_stack`) and one for the return values (`ret_stack`). The `arg_stack` contains a sequence of two kinds of actions:
 
-```rs
+```rust
 #[derive(Debug)]
 enum Action<T, U> {
     Call(T),
@@ -27,7 +27,7 @@ This forms a general purpose framework that enables us to convert any (I believe
 
 Let's take a look at a simple recursive function that calculates `n`-th Fibonacci number:
 
-```console
+```rust
 fn fib(n: usize) -> usize {
     if n < 2 {
         n
@@ -39,7 +39,7 @@ fn fib(n: usize) -> usize {
 
 This is how you would implement such function in a non-recursive fashion using the aforementioned framework:
 
-```console
+```rust
 fn fib_nonrec(n: usize) -> usize {
     let mut arg_stack = Vec::<Action<usize, ()>>::new();
     let mut ret_stack = Vec::<usize>::new();
@@ -74,7 +74,7 @@ fn fib_nonrec(n: usize) -> usize {
 
 Calling `fib_nonrec(3)` generates the following log:
 
-```
+```console
 action = Call(3)
 arg_stack = [Handle(()), Call(1), Call(2)]
 ret_stack = []
