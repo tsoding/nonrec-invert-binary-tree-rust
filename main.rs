@@ -92,7 +92,8 @@ fn invert_tree<T: Clone + Debug>(root: &NodeRef<T>) -> NodeRef<T> {
 
 fn main() {
     let tree = generate_tree(3);
+    println!("Original Tree:");
     print_tree(&tree);
-    println!("------------------------------");
+    println!("Inverted Tree:");
     print_tree(&invert_tree(&tree));
 }
