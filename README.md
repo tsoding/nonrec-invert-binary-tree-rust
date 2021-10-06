@@ -109,4 +109,4 @@ The top of the stacks is on the right.
 
 Notice how the `arg_stack` grows until it exhausts `n` and shrinks back computing the final result into the `ret_stack`. This is basically the simulation of the recursive process.
 
-The resulting code is admittedly bigger, less readable and more difficult to extend, so I do not generally recommend to develop in this style. This entire example was created as a coding exercise. Although this approach might be useful for doing very deep recursion to prevent stack overflows, since [Vec<T>](https://doc.rust-lang.org/std/vec/struct.Vec.html) can extend for as long as there is available memory and the call stack is usually limited.
+The resulting code is admittedly bigger, less readable and more difficult to extend, so I do not generally recommend to develop in this style. This entire example was created as a coding exercise. Although this approach might be useful for doing very deep recursion to prevent stack overflows, since [`Vec<T>`](https://doc.rust-lang.org/std/vec/struct.Vec.html) can extend for as long as there is available memory and the call stack is usually limited.
